@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Построение полинома Жегалкина</title>
+    <style>
+/* Общие стили */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+form {
+    text-align: center;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+input[type="text"],
+textarea {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none; /* Убираем возможность изменять размер */
+}
+
+input[type="submit"] {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+.error-message {
+    color: #ff0000;
+    margin-bottom: 10px;
+}
+
+/* Картинка */
+.image-container {
+    text-align: center;
+}
+
+.image-container img {
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Построение полинома Жегалкина</h1>
+        {% if error_message %}
+            <p class="error-message">{{ error_message }}</p>
+        {% endif %}
+        <form id="form" action="/result" method="post">
+            <label for="num_variables">Количество переменных функции f:</label>
+            <input type="text" id="num_variables" name="num_variables">
+            <label for="function_vector">Вектор значений функции f:</label>
+            <textarea id="function_vector" name="function_vector" rows="4" cols="50" resize="vertical" maxlength="1000" required></textarea>
+            <input type="submit" id="submitBtn" value="Построить полином Жегалкина">
+        </form>
+    </div>
+
+    <script>
+        const functionVector = document.getElementById('function_vector');
+        const submitBtn = document.getElementById('submitBtn');
+        const num_var = document.getElementById('num_variables');
+
+        functionVector.addEventListener('input', function() {
+            if (!/^[01]+$/.test(functionVector.value)) {
+                submitBtn.disabled = true;
+                submitBtn.classList.add('disabled');
+                alert('Вводите только 1 или 0');
+            } else {
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('disabled');
+            }
+            if (num_var.value<2){
+                alert('Невозможно построение полинома из 1 переменной')
+            }
+        });
+
+
+    </script>
+</body>
+</html>
